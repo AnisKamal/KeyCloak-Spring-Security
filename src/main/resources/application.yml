@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: Spring-security-keycloack
+  #Security config
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/SpringSecurityKeyClockRealm
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+#JWT config
+jwt:
+  auth:
+    converter:
+      resource-id: my-app-client
+      principal-attribute: principal_username
+
+
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework.scripting: TRACE
