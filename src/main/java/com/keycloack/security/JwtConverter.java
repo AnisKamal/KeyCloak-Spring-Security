@@ -19,15 +19,13 @@ import java.util.stream.Stream;
 
 
 @Component
+@RequiredArgsConstructor
 public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
     private final JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
     private final JwtConverter jwtConverter;
     private final JwtConverterProperties jwtConverterProperties;
 
-    public JwtConverter(JwtConverterProperties jwtConverterProperties) {
-        this.jwtConverterProperties = jwtConverterProperties;
-    }
 
     @Override
     public AbstractAuthenticationToken convert(Jwt jwt) {
@@ -41,7 +39,7 @@ public class JwtConverter implements Converter<Jwt, AbstractAuthenticationToken>
     }
 
     private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt jwt) {
-        Map<String, Object> resourceAccess = jwt.getClaims("resource_access");
+        Map<String, Object> resourceAccess = jwt.getClaims();
         Map<String, Object> resource;
         Collection<String> resourceRoles;
 
